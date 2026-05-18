@@ -3,9 +3,14 @@
   padding: 20px min(40px, 4vw) 60px;
 }
 
-.dashboard-header {
+.dashboard-header,
+.dashboard-grid {
   width: min(1180px, 100%);
-  margin: 0 auto 34px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  margin-bottom: 34px;
 }
 
 .dashboard-header h1 {
@@ -14,20 +19,16 @@
   font-size: clamp(28px, 3.2vw, 40px);
   font-weight: 700;
   line-height: 1.1;
-  letter-spacing: 0;
 }
 
 .dashboard-header p {
-  margin-top: 12px;
+  margin: 12px 0 0;
   color: #6a6a6a;
   font-size: 16px;
   line-height: 1.5;
 }
 
 .dashboard-grid {
-  width: min(1180px, 100%);
-  margin: 0 auto;
-
   display: grid;
   grid-template-columns: 1fr 1.05fr 0.9fr;
   gap: 24px;
@@ -43,14 +44,10 @@
 .dashboard-card {
   position: relative;
   overflow: hidden;
-
   padding: 24px;
   border-radius: 24px;
-
   background: rgba(255, 255, 255, 0.94);
-
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.045);
-
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -65,16 +62,13 @@
   content: "";
   position: absolute;
   inset: 0;
-
   border-radius: inherit;
-
   background:
     radial-gradient(
       circle at top right,
       rgba(91, 203, 142, 0.07) 0%,
       transparent 30%
     );
-
   pointer-events: none;
 }
 
@@ -96,10 +90,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   margin-bottom: 20px;
   padding-bottom: 14px;
-
   border-bottom: 1px solid rgba(91, 203, 142, 0.14);
 }
 
@@ -111,12 +103,9 @@
 
 .card-title::before {
   content: "";
-
   width: 4px;
   height: 20px;
-
   border-radius: 999px;
-
   background: #5bcb8e;
 }
 
@@ -134,17 +123,19 @@
   font-weight: 650;
 }
 
-.profile-status {
-  display: inline-block;
-
-  padding: 8px 14px;
+.profile-status,
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
   border-radius: 999px;
-
-  background: rgba(91, 203, 142, 0.12);
-
+  background: rgba(91, 203, 142, 0.10);
   color: #4f9e72;
   font-size: 13px;
   font-weight: 600;
+}
+
+.profile-status {
+  padding: 8px 14px;
 }
 
 .profile-description {
@@ -152,11 +143,6 @@
   color: #666;
   font-size: 15px;
   line-height: 1.6;
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
 }
 
 .edit-btn,
@@ -168,7 +154,7 @@
   cursor: pointer;
   font-family: inherit;
   font-weight: 600;
-  transition: 0.25s ease;
+  transition: background 0.25s ease;
 }
 
 .edit-btn,
@@ -176,9 +162,7 @@
 .save-btn {
   padding: 10px 14px;
   border-radius: 999px;
-
   background: rgba(91, 203, 142, 0.10);
-
   color: #4f9e72;
   font-size: 13px;
 }
@@ -192,9 +176,7 @@
 .cancel-btn {
   padding: 10px 14px;
   border-radius: 999px;
-
   background: rgba(0, 0, 0, 0.05);
-
   color: #666;
   font-size: 13px;
 }
@@ -203,15 +185,25 @@
   background: rgba(0, 0, 0, 0.09);
 }
 
+.logout-btn {
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: rgba(255, 80, 80, 0.08);
+  color: #e45b5b;
+  font-size: 14px;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 80, 80, 0.14);
+}
+
 .dashboard-form-group {
   margin-bottom: 14px;
 }
 
 .dashboard-form-group label {
   display: block;
-
   margin-bottom: 8px;
-
   color: #8a8a8a;
   font-size: 12px;
   font-weight: 700;
@@ -222,16 +214,11 @@
 .dashboard-form-group textarea,
 .add-compass-row select {
   width: 100%;
-
   border: 1px solid #e7e7e7;
   border-radius: 16px;
-
   outline: none;
-
   background: rgba(255, 255, 255, 0.82);
-
   color: #111;
-
   font-family: inherit;
   font-size: 14px;
 }
@@ -257,15 +244,17 @@
   box-shadow: 0 0 0 4px rgba(91, 203, 142, 0.12);
 }
 
-.form-actions {
+.form-actions,
+.add-compass-row {
   display: flex;
   gap: 10px;
+}
+
+.form-actions {
   margin-top: 18px;
 }
 
 .add-compass-row {
-  display: flex;
-  gap: 10px;
   margin-bottom: 18px;
 }
 
@@ -280,18 +269,8 @@
 }
 
 .skill-tag {
-  display: flex;
-  align-items: center;
   gap: 8px;
-
   padding: 10px 14px;
-  border-radius: 999px;
-
-  background: rgba(91, 203, 142, 0.10);
-
-  color: #4f9e72;
-  font-size: 13px;
-  font-weight: 600;
 }
 
 .remove-skill {
@@ -326,32 +305,31 @@
   font-size: 16px;
 }
 
-.quiz-completed {
-  color: #5bcb8e;
+.quiz-completed,
+.quiz-progress {
   font-size: 14px;
   font-weight: 600;
+}
+
+.quiz-completed {
+  color: #5bcb8e;
 }
 
 .quiz-progress {
   color: #ff9f43;
-  font-size: 14px;
-  font-weight: 600;
 }
 
 .profession-item {
   display: block;
-
   margin-bottom: 12px;
   padding: 14px 16px;
-
   border-radius: 16px;
-
   background: rgba(91, 203, 142, 0.06);
   border: 1px solid rgba(91, 203, 142, 0.10);
-
   text-decoration: none;
-
-  transition: 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
 }
 
 .profession-item:hover {
@@ -375,31 +353,12 @@
 
 .empty-state {
   margin: 0;
-
   padding: 18px;
-
   border-radius: 18px;
-
   background: rgba(0, 0, 0, 0.035);
-
   color: #777;
   font-size: 14px;
   line-height: 1.5;
-}
-
-.logout-btn {
-  padding: 12px 22px;
-  border-radius: 999px;
-
-  background: rgba(255, 80, 80, 0.08);
-
-  color: #e45b5b;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.logout-btn:hover {
-  background: rgba(255, 80, 80, 0.14);
 }
 
 .hidden {
@@ -413,8 +372,8 @@
 
 .quiz-scroll::-webkit-scrollbar-thumb,
 .profession-scroll::-webkit-scrollbar-thumb {
-  background: rgba(91, 203, 142, 0.25);
   border-radius: 999px;
+  background: rgba(91, 203, 142, 0.25);
 }
 
 @media (max-width: 1000px) {
@@ -437,10 +396,7 @@
     border-radius: 24px;
   }
 
-  .add-compass-row {
-    flex-direction: column;
-  }
-
+  .add-compass-row,
   .form-actions {
     flex-direction: column;
   }
