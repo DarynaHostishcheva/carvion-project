@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carvion — Authentication</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="nav-container">
+
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/logo.png" alt="Carvion">
+        </a>
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="community.html" class="mobile-hide">Community</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <section class="auth-page">
+
+    <div class="auth-bg-glow glow-1"></div>
+    <div class="auth-bg-glow glow-2"></div>
+
+    <div class="auth-card">
+
+      <div class="auth-header">
+        <h1 id="authTitle">Shape your future!</h1>
+
+        <p id="authSubtitle">
+          Join a community of students and professionals building meaningful careers.
+        </p>
+      </div>
+
+      <div class="auth-toggle">
+
+        <div class="toggle-slider" id="toggleSlider"></div>
+
+        <button class="toggle-btn active" id="loginToggle">
+          Log In
+        </button>
+
+        <button class="toggle-btn" id="signupToggle">
+          Sign Up
+        </button>
+
+      </div>
+
+      <form class="auth-form" id="authForm">
+
+        <div class="form-group signup-only hidden-field" id="nameGroup">
+
+          <label>FULL NAME</label>
+
+          <div class="input-wrapper">
+            <i class="fa-solid fa-user"></i>
+
+            <input
+              type="text"
+              placeholder="John Carter"
+              id="fullName"
+            >
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label>EMAIL ADDRESS</label>
+
+          <div class="input-wrapper">
+            <i class="fa-solid fa-envelope"></i>
+
+            <input
+              type="email"
+              placeholder="iam@gmail.com"
+              id="email"
+              required
+            >
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label>PASSWORD</label>
+
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock"></i>
+
+            <input
+              type="password"
+              placeholder="••••••••••"
+              id="password"
+              required
+            >
+          </div>
+
+        </div>
+
+        <div class="form-group signup-only hidden-field" id="repeatGroup">
+
+          <label>REPEAT PASSWORD</label>
+
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock"></i>
+
+            <input
+              type="password"
+              placeholder="••••••••••"
+              id="repeatPassword"
+            >
+          </div>
+
+        </div>
+
+        <button type="submit" class="auth-submit-btn" id="submitBtn">
+
+          <span>Get Started</span>
+
+          <i class="fa-solid fa-arrow-right"></i>
+
+        </button>
+
+      </form>
+
+      <div class="ethical-box">
+
+        <p>
+          <strong>Ethical Data Promise:</strong>
+          We never sell your data. Your career journey is private and secure.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <script src="js/auth.js"></script>
+
+</body>
+</html>

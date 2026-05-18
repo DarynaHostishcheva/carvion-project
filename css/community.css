@@ -1,0 +1,457 @@
+/* =========================
+   PAGE
+========================= */
+
+body {
+
+  background: #f5f5f5;
+
+  font-family: 'Inter', sans-serif;
+
+  overflow-x: hidden;
+
+  opacity: 0;
+
+  transition: opacity 0.35s ease;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+
+/* =========================
+   GRAIN
+========================= */
+
+body::before {
+
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.022;
+
+  background-image:
+    radial-gradient(rgba(0,0,0,0.4) 0.5px, transparent 0.5px);
+
+  background-size: 4px 4px;
+
+  z-index: 9999;
+}
+
+
+/* =========================
+   GLOWS
+========================= */
+
+.community-glow {
+
+  position: fixed;
+
+  border-radius: 50%;
+
+  filter: blur(100px);
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+.glow-1 {
+
+  width: 340px;
+  height: 340px;
+
+  top: 120px;
+  right: -100px;
+
+  background:
+    rgba(91,203,142,0.12);
+}
+
+.glow-2 {
+
+  width: 260px;
+  height: 260px;
+
+  bottom: 40px;
+  left: -100px;
+
+  background:
+    rgba(91,203,142,0.08);
+}
+
+
+/* =========================
+   PAGE WRAPPER
+========================= */
+
+.community-page {
+
+  width: min(1180px, calc(100% - 40px));
+
+  margin: 18px auto 24px;
+
+  height: calc(100vh - 150px);
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.nav-actions {
+
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-btn {
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 22px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(91,203,142,0.10);
+
+  color: #4f9e72;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.dashboard-btn:hover {
+
+  background:
+    rgba(91,203,142,0.18);
+
+  transform: translateY(-1px);
+}
+
+
+/* ACTIVE LINK */
+
+.active-link {
+
+  color: #111 !important;
+
+  position: relative;
+}
+
+.active-link::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: -8px;
+
+  width: 100%;
+  height: 2px;
+
+  border-radius: 999px;
+
+  background: #5bcb8e;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.community-hero {
+
+  margin-bottom: 28px;
+}
+
+.hero-left {
+
+  max-width: 760px;
+}
+
+.hero-left h1 {
+
+  margin: 0;
+
+  font-size: clamp(42px, 5vw, 62px);
+  font-weight: 750;
+  line-height: 1.04;
+
+  letter-spacing: 0px;
+
+  color: #161616;
+
+  text-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.hero-left h1 span {
+
+  display: block;
+
+  margin-top: 0px;
+
+  color: #63c98d;
+
+  text-shadow: 0 8px 22px rgba(91, 203, 142, 0.32);
+}
+
+.hero-left p {
+
+  margin: 18px 0 0;
+
+  max-width: 600px;
+
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+
+  color: #666;
+}
+
+
+/* =========================
+   SOCIAL GRID
+========================= */
+
+.socials-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+
+/* =========================
+   SOCIAL CARD
+========================= */
+
+.social-card {
+  position: relative;
+
+  overflow: hidden;
+
+  min-height: 260px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 24px;
+
+  border-radius: 28px;
+
+  background: rgba(255,255,255,0.64);
+
+  backdrop-filter: blur(22px);
+
+  border: 1px solid rgba(255,255,255,0.8);
+
+  box-shadow:
+    0 22px 54px rgba(0,0,0,0.08),
+    0 10px 20px rgba(91,203,142,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.75);
+
+  transition: 0.28s ease;
+}
+
+.social-card:hover {
+
+  transform: translateY(-6px);
+
+  box-shadow:
+
+    0 40px 80px rgba(0,0,0,0.12),
+
+    0 16px 34px rgba(91,203,142,0.08);
+}
+
+.social-card p {
+  margin: 0 0 22px;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  color: #666;
+}
+/* =========================
+   ICON
+========================= */
+
+.social-icon {
+
+  width: 62px;
+  height: 62px;
+
+  border-radius: 20px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(255,255,255,0.76);
+
+  box-shadow:
+
+    0 10px 24px rgba(0,0,0,0.05);
+}
+
+.social-icon img {
+
+  width: 40px;
+
+  object-fit: contain;
+}
+
+
+/* =========================
+   CARD TITLE
+========================= */
+
+.social-card h3 {
+
+  margin: 18px 0 8px;
+
+  font-size: 22px;
+
+  letter-spacing: 0px;
+
+  font-weight: 700;
+
+  color: #181818;
+}
+
+
+/* =========================
+   CARD TEXT
+========================= */
+
+.social-card p {
+
+  margin: 0;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+
+  color: #666;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.social-btn {
+  margin-top: auto;
+
+  height: 46px;
+
+  width: 100%;
+
+  border: none;
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #6fe0a1, #57c788);
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  box-shadow: 0 14px 30px rgba(91,203,142,0.24);
+
+  transition: 0.24s ease;
+}
+
+.social-btn:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+
+    0 20px 34px rgba(91,203,142,0.30);
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+  .socials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  body {
+    overflow-y: auto;
+  }
+
+  .community-page {
+    justify-content: flex-start;
+    min-height: auto;
+  }
+
+}
+
+@media (max-width: 700px) {
+  .community-page {
+    width: calc(100% - 28px);
+    margin-top: 10px;
+  }
+
+  .hero-left h1 {
+    font-size: 42px;
+  }
+
+  .hero-left p {
+    font-size: 16px;
+  }
+
+  .community-hero {
+    margin-bottom: 22px;
+  }
+
+  .socials-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .social-card {
+    padding: 22px;
+  }
+
+  body {
+    overflow-y: auto;
+  }
+}

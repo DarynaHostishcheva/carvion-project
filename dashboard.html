@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Dashboard | Carvion</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="nav-container">
+
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/logo.png" alt="Carvion">
+        </a>
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="community.html" class="mobile-hide">Community</a>
+        <a href="careers.html">Explore</a>
+        <a href="quizzes.html">Quizzes</a>
+        <a href="chat.html">Carvion AI</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="logoutBtn" class="logout-btn">
+          Logout
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="dashboard-page">
+
+    <section class="dashboard-header">
+      <div>
+        <h1 id="dashboardGreeting">Welcome back!</h1>
+
+        <p>
+          Here is your personal career growth overview.
+        </p>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+
+      <div class="dashboard-column">
+
+        <div class="dashboard-card profile-card">
+
+          <div class="card-top">
+            <div class="card-title">
+              <h2>Profile</h2>
+            </div>
+
+            <button class="edit-btn" id="editProfileBtn">
+              Edit
+            </button>
+          </div>
+
+          <div class="profile-view" id="profileView">
+            <h3 id="profileName">User Name</h3>
+
+            <span class="profile-status" id="profileStatus">
+              Exploring Options
+            </span>
+
+            <p class="profile-description" id="profileDescription">
+              Career explorer passionate about discovering meaningful paths.
+            </p>
+          </div>
+
+          <form class="profile-form hidden" id="profileForm">
+
+            <div class="dashboard-form-group">
+              <label for="profileNameInput">Full name</label>
+              <input type="text" id="profileNameInput">
+            </div>
+
+            <div class="dashboard-form-group">
+              <label for="profileStatusInput">Status</label>
+
+              <select id="profileStatusInput">
+                <option value="Exploring Options">Exploring Options</option>
+                <option value="Actively Learning">Actively Learning</option>
+                <option value="Building Portfolio">Building Portfolio</option>
+                <option value="Open To Opportunities">Open To Opportunities</option>
+                <option value="Career Switching">Career Switching</option>
+              </select>
+            </div>
+
+            <div class="dashboard-form-group">
+              <label for="profileDescriptionInput">About me</label>
+
+              <textarea
+                id="profileDescriptionInput"
+                rows="4"
+              ></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="save-btn">
+                Save
+              </button>
+
+              <button type="button" class="cancel-btn" id="cancelProfileBtn">
+                Cancel
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+        <div class="dashboard-card compass-card">
+
+          <div class="card-heading">
+            <div class="card-title">
+              <h2>My Compass</h2>
+            </div>
+          </div>
+
+          <p class="card-description">
+            Skills and interests that shape your career direction.
+          </p>
+
+          <div class="add-compass-row">
+            <select id="compassSelect">
+              <option value="">Choose skill or interest</option>
+            </select>
+
+            <button id="addCompassBtn" class="add-btn">
+              Add
+            </button>
+          </div>
+
+          <div class="skills-list" id="skillsContainer"></div>
+
+        </div>
+
+      </div>
+
+      <div class="dashboard-column">
+
+        <div class="dashboard-card quizzes-card">
+
+          <div class="card-heading">
+            <div class="card-title">
+              <h2>Completed Quizzes</h2>
+            </div>
+          </div>
+
+          <div class="quiz-scroll" id="quizContainer"></div>
+
+        </div>
+
+      </div>
+
+      <div class="dashboard-column">
+
+        <div class="dashboard-card explored-card">
+
+          <div class="card-heading">
+            <div class="card-title">
+              <h2>Explored Professions</h2>
+            </div>
+          </div>
+
+          <p class="card-description">
+            Careers saved from the career library.
+          </p>
+
+          <div class="profession-scroll" id="professionContainer"></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="js/dashboard.js"></script>
+
+</body>
+</html>
