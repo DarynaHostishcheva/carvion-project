@@ -736,3 +736,189 @@ body::before {
 
   border-radius: 999px;
 }
+
+/* =========================
+   MOBILE CHAT FIX
+========================= */
+
+@media (max-width: 760px) {
+
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .chat-page {
+    width: calc(100% - 22px);
+
+    height: auto;
+    min-height: calc(100dvh - 110px);
+
+    margin: 0 auto 22px;
+  }
+
+  .chat-layout {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    height: auto;
+  }
+
+  .chat-main {
+    order: 1;
+
+    min-height: calc(100dvh - 160px);
+    height: calc(100dvh - 160px);
+
+    margin: 0;
+
+    padding: 16px;
+
+    border-radius: 28px;
+  }
+
+  .chat-sidebar {
+    order: 2;
+
+    width: 100%;
+    height: auto;
+    max-height: 210px;
+
+    margin: 0;
+
+    padding: 14px;
+
+    border-radius: 26px;
+  }
+
+  .new-chat-btn {
+    height: 46px;
+
+    margin-bottom: 14px;
+
+    border-radius: 16px;
+  }
+
+  .sidebar-title {
+    margin-bottom: 10px;
+
+    font-size: 14px;
+  }
+
+  .saved-chats {
+    display: flex;
+    flex-direction: row;
+
+    gap: 10px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding-bottom: 4px;
+
+    scrollbar-width: none;
+  }
+
+  .saved-chats::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chat-item {
+    min-width: 190px;
+    max-width: 220px;
+
+    flex: 0 0 auto;
+  }
+
+  .chat-start {
+    margin-top: 26px;
+  }
+
+  .chat-logo {
+    width: 54px;
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .chat-start h1 {
+    font-size: 34px;
+  }
+
+  .chat-start p {
+    max-width: 100%;
+
+    font-size: 14px;
+  }
+
+  .suggestions {
+    justify-content: flex-start;
+
+    overflow-x: auto;
+    flex-wrap: nowrap;
+
+    padding-bottom: 4px;
+
+    scrollbar-width: none;
+  }
+
+  .suggestions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .suggestion-btn {
+    flex: 0 0 auto;
+
+    max-width: 240px;
+
+    white-space: normal;
+  }
+
+  .bubble {
+    max-width: 86%;
+
+    font-size: 13px;
+  }
+
+  .chat-input-wrapper {
+    border-radius: 24px;
+
+    padding: 8px;
+  }
+
+  .chat-input-wrapper button {
+    min-width: 74px;
+
+    height: 42px;
+  }
+
+}
+
+@media (max-width: 430px) {
+
+  .chat-main {
+    min-height: calc(100dvh - 150px);
+    height: calc(100dvh - 150px);
+
+    padding: 14px;
+
+    border-radius: 24px;
+  }
+
+  .chat-sidebar {
+    max-height: 190px;
+  }
+
+  .chat-input-wrapper input {
+    font-size: 13px;
+  }
+
+  .chat-input-wrapper button {
+    min-width: 66px;
+
+    font-size: 12px;
+  }
+
+}
