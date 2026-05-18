@@ -1,13 +1,6 @@
-/* careers.css */
-
-/* =========================
-   PAGE
-========================= */
-
 body {
   background: #f7f8f7;
   font-family: 'Inter', sans-serif;
-
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -18,147 +11,46 @@ body.loaded {
 
 .careers-page {
   min-height: calc(100vh - 100px);
-
-  padding:
-    24px
-    min(40px, 4vw)
-    60px;
+  padding: 24px min(40px, 4vw) 60px;
 }
-
-/* =========================
-   NAVBAR EXTRA
-========================= */
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-}
-
-.dashboard-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 12px 22px;
-
-  border-radius: 999px;
-
-  background: rgba(91, 203, 142, 0.10);
-
-  color: #4f9e72;
-
-  text-decoration: none;
-
-  font-size: 14px;
-
-  font-weight: 600;
-
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease;
-}
-
-.dashboard-btn:hover {
-  background: rgba(91, 203, 142, 0.18);
-
-  transform: translateY(-1px);
-}
-
-/* ACTIVE LINK */
-
-.active-link {
-  color: #111 !important;
-
-  position: relative;
-}
-
-.active-link::after {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  bottom: -8px;
-
-  width: 100%;
-  height: 2px;
-
-  border-radius: 999px;
-
-  background: #5bcb8e;
-}
-
-/* =========================
-   LAYOUT
-========================= */
 
 .careers-layout {
   width: min(1280px, 100%);
   margin: 0 auto;
-
   display: grid;
-
-  grid-template-columns:
-    240px
-    1fr;
-
+  grid-template-columns: 240px 1fr;
   gap: 28px;
-
   align-items: start;
 }
 
-/* =========================
-   SIDEBAR
-========================= */
-
 .careers-sidebar {
-  display: flex;
-  flex-direction: column;
-
-  gap: 20px;
-
   position: sticky;
   top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-
-/* SIDEBAR CARD */
-
-/* SIDEBAR CARD */
 
 .sidebar-card {
   position: relative;
-
   overflow: hidden;
-
-  background:
-    rgba(245, 249, 246, 0.72);
-
-  backdrop-filter: blur(18px);
-
-  -webkit-backdrop-filter: blur(18px);
-
-  border-radius: 30px;
-
   padding: 22px;
-
-  border:
-    1px solid rgba(91,203,142,0.08);
-
-  box-shadow:
-    0 4px 14px rgba(0,0,0,0.025);
-
+  border-radius: 30px;
+  background: rgba(245, 249, 246, 0.72);
+  border: 1px solid rgba(91, 203, 142, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.025);
   transition:
-    all 0.3s ease;
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .sidebar-card:hover {
   transform: translateY(-1px);
-
-  border:
-    1px solid rgba(91,203,142,0.14);
-
-  box-shadow:
-    0 8px 20px rgba(0,0,0,0.03);
+  border-color: rgba(91, 203, 142, 0.14);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
 }
 
 .sidebar-card > * {
@@ -166,95 +58,59 @@ body.loaded {
   z-index: 2;
 }
 
-/* SIDEBAR TITLE */
-
 .sidebar-card h3 {
   margin: 0 0 18px;
-
-  font-size: 17px;
-
-  font-weight: 650;
-
-  letter-spacing: -0.4px;
-
   color: #202020;
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: -0.4px;
 }
-
-/* SEARCH */
 
 .search-input {
   width: 100%;
-
-  border: none;
-  outline: none;
-
-  background: #f3f5f3;
-
-  border-radius: 16px;
-
   padding: 14px 16px;
-
-  font-size: 14px;
-
+  border: none;
+  border-radius: 16px;
+  outline: none;
+  background: #f3f5f3;
   color: #333;
+  font-size: 14px;
 }
-
-/* FILTERS */
 
 .filter-list {
   display: flex;
   flex-wrap: wrap;
-
   gap: 12px;
 }
 
 .filter-btn {
-  border:
-    1px solid rgba(91,203,142,0.10);
-
   padding: 10px 14px;
-
+  border: 1px solid rgba(91, 203, 142, 0.10);
   border-radius: 999px;
-
-  background:
-    rgba(255,255,255,0.92);
-
+  background: rgba(255, 255, 255, 0.92);
   color: #55645b;
-
   font-size: 12px;
   font-weight: 600;
-
   cursor: pointer;
-
   transition:
-    all 0.25s ease;
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 
 .filter-btn:hover {
-  background:
-    rgba(255,255,255,1);
-
-  border:
-    1px solid rgba(91,203,142,0.20);
-
-  color: #4f9e72;
-
   transform: translateY(-1px);
+  border-color: rgba(91, 203, 142, 0.20);
+  background: white;
+  color: #4f9e72;
 }
 
 .filter-btn.active {
-  background:
-    rgba(91,203,142,0.12);
-
-  border:
-    1px solid rgba(91,203,142,0.18);
-
+  border-color: rgba(91, 203, 142, 0.18);
+  background: rgba(91, 203, 142, 0.12);
   color: #4f9e72;
 }
-
-/* =========================
-   CONTENT
-========================= */
 
 .careers-header {
   margin-bottom: 34px;
@@ -262,70 +118,40 @@ body.loaded {
 
 .careers-header h1 {
   margin: 0;
-
-  font-size: clamp(34px, 5vw, 52px);
-
-  line-height: 1.02;
-
-  font-weight: 700;
-
-  letter-spacing: -2.2px;
-
   color: #161616;
+  font-size: clamp(34px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -2.2px;
 }
 
 .careers-header p {
-  margin-top: 14px;
-
   max-width: 700px;
-
-  font-size: 16px;
-
-  line-height: 1.7;
-
+  margin: 14px 0 0;
   color: #666;
+  font-size: 16px;
+  line-height: 1.7;
 }
-
-/* =========================
-   GRID
-========================= */
 
 .careers-grid {
   display: grid;
-
-  grid-template-columns:
-    repeat(auto-fill, minmax(280px, 1fr));
-
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
-/* =========================
-   CAREER CARD
-========================= */
-
 .career-card {
   position: relative;
-
   overflow: hidden;
-
+  min-height: 240px;
   display: flex;
   flex-direction: column;
-
-  min-height: 240px;
-
-  text-decoration: none;
-
-  background:
-    rgba(255,255,255,0.96);
-
-  border-radius: 28px;
-
   padding: 22px;
-
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.96);
+  text-decoration: none;
   box-shadow:
-    0 14px 34px rgba(0,0,0,0.045),
-    0 2px 10px rgba(91,203,142,0.04);
-
+    0 14px 34px rgba(0, 0, 0, 0.045),
+    0 2px 10px rgba(91, 203, 142, 0.04);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -333,32 +159,26 @@ body.loaded {
 
 .career-card::before {
   content: "";
-
   position: absolute;
   inset: 0;
-
   border-radius: inherit;
-
   background:
     radial-gradient(
       circle at top right,
-      rgba(91,203,142,0.08),
+      rgba(91, 203, 142, 0.08),
       transparent 30%
     ),
     radial-gradient(
       circle at bottom left,
-      rgba(91,203,142,0.05),
+      rgba(91, 203, 142, 0.05),
       transparent 32%
     );
-
   pointer-events: none;
 }
 
 .career-card:hover {
   transform: translateY(-4px);
-
-  box-shadow:
-    0 18px 40px rgba(91,203,142,0.12);
+  box-shadow: 0 18px 40px rgba(91, 203, 142, 0.12);
 }
 
 .career-card > * {
@@ -366,126 +186,71 @@ body.loaded {
   z-index: 2;
 }
 
-/* TOP */
-
 .career-top {
   margin-bottom: 16px;
 }
 
-/* BADGE */
-
 .career-badge {
   display: inline-flex;
-
   padding: 7px 12px;
-
   border-radius: 999px;
-
-  background: rgba(91,203,142,0.10);
-
+  background: rgba(91, 203, 142, 0.10);
   color: #4f9e72;
-
   font-size: 11px;
   font-weight: 700;
 }
 
-/* TITLE */
-
 .career-card h2 {
   margin: 0 0 12px;
-
-  font-size: 21px;
-
-  line-height: 1.15;
-
-  letter-spacing: -0.8px;
-
-  font-weight: 650;
-
   color: #1d1d1d;
+  font-size: 21px;
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
 }
-
-/* DESCRIPTION */
 
 .career-description {
-  margin: 0;
-
-  font-size: 14px;
-
-  line-height: 1.6;
-
-  color: #666;
-
   flex: 1;
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
 }
-
-/* FOOTER */
 
 .career-footer {
   margin-top: 18px;
-
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
 }
-
-/* SALARY */
-
-.salary {
-  color: #888;
-
-  font-size: 13px;
-
-  font-weight: 500;
-}
-
-/* LINK */
 
 .career-link {
   color: #5bcb8e;
-
   font-size: 13px;
   font-weight: 700;
 }
 
-/* =========================
-   EMPTY STATE
-========================= */
-
 .empty-state {
   width: 100%;
-
   padding: 60px 20px;
-
   border-radius: 28px;
-
-  background: rgba(255,255,255,0.9);
-
+  background: rgba(255, 255, 255, 0.9);
   text-align: center;
-
-  box-shadow:
-    0 8px 24px rgba(0,0,0,0.04);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
 }
 
 .empty-state h3 {
-  margin-bottom: 10px;
-
-  font-size: 24px;
-
+  margin: 0 0 10px;
   color: #111;
+  font-size: 24px;
 }
 
 .empty-state p {
+  margin: 0;
   color: #666;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
 @media (max-width: 1000px) {
-
   .careers-layout {
     grid-template-columns: 1fr;
   }
@@ -493,11 +258,9 @@ body.loaded {
   .careers-sidebar {
     position: static;
   }
-
 }
 
 @media (max-width: 640px) {
-
   .careers-page {
     padding: 14px;
   }
@@ -507,9 +270,8 @@ body.loaded {
   }
 
   .career-card {
-    border-radius: 24px;
-
     padding: 20px;
+    border-radius: 24px;
   }
 
   .career-card h2 {
@@ -519,5 +281,4 @@ body.loaded {
   .careers-header h1 {
     font-size: 40px;
   }
-
 }
