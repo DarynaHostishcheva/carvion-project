@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>AI Assistant | Carvion</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/chat.css" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+</head>
+
+<body>
+
+  <!-- GLOWS -->
+
+  <div class="chat-glow glow-1"></div>
+  <div class="chat-glow glow-2"></div>
+
+
+  <!-- NAVBAR -->
+
+  <header class="navbar">
+
+    <div class="nav-container">
+
+      <!-- LOGO -->
+
+      <div class="logo">
+
+        <a href="index.html">
+
+          <img
+            src="assets/logo.png"
+            alt="Carvion"
+          />
+
+        </a>
+
+      </div>
+
+
+      <!-- NAV -->
+
+      <nav class="nav-links">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="community.html">
+          Community
+        </a>
+
+        <a href="careers.html">
+          Explore
+        </a>
+
+        <a href="quizzes.html">
+          Quizzes
+        </a>
+        
+        <a href="chat.html" class="active-link">
+          Carvion AI
+        </a>
+
+      </nav>
+
+
+      <!-- DASHBOARD -->
+
+      <div class="nav-actions">
+
+        <a
+          href="dashboard.html"
+          class="dashboard-btn"
+        >
+          My Dashboard
+        </a>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- PAGE -->
+
+  <main class="chat-page">
+
+    <div class="chat-layout">
+
+
+      <!-- SIDEBAR -->
+
+      <aside class="chat-sidebar glass-card">
+
+        <!-- NEW CHAT -->
+
+        <button
+          class="new-chat-btn"
+          id="newChatBtn"
+        >
+
+          <span>+</span>
+
+          New Chat
+
+        </button>
+
+
+        <!-- TITLE -->
+
+        <div class="sidebar-title">
+          Previous Chats
+        </div>
+
+
+        <!-- SAVED CHATS -->
+
+        <div
+          class="saved-chats"
+          id="savedChats"
+        ></div>
+
+      </aside>
+
+      <!-- CHAT -->
+
+      <section class="chat-main glass-card">
+
+        <!-- START -->
+
+        <div
+          class="chat-start"
+          id="chatStart"
+        >
+
+          <img
+            src="assets/chat.png"
+            alt="AI"
+            class="chat-logo"
+          />
+
+          <h1>Hello!</h1>
+
+          <p>
+            I’m your ethical career assistant.
+            Ask me about careers, salaries,
+            required skills and future opportunities.
+          </p>
+
+
+          <!-- SUGGESTIONS -->
+
+          <div class="suggestions">
+
+            <button class="suggestion-btn">
+              Find remote work in IT
+            </button>
+
+            <button class="suggestion-btn">
+              What skills are needed in Data Engineering?
+            </button>
+
+            <button class="suggestion-btn">
+              Salaries in UI/UX
+            </button>
+
+            <button class="suggestion-btn">
+              Salary prediction for Data Analytics in 2026
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- MESSAGES -->
+
+        <div
+          class="messages-container"
+          id="messagesContainer"
+        ></div>
+
+
+        <!-- INPUT -->
+
+        <form
+          class="chat-input-wrapper"
+          id="chatForm"
+        >
+
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="Type your question..."
+          />
+
+          <button type="submit">
+            Send
+          </button>
+
+        </form>
+
+      </section>
+
+    </div>
+
+  </main>
+  
+  <script src="js/chat.js"></script>
+
+</body>
+
+</html>
