@@ -1221,3 +1221,201 @@ img {
   }
 
 }
+
+/* =========================
+   FINAL MOBILE NAVBAR
+========================= */
+
+@media (max-width: 760px) {
+
+  body {
+    padding-top: 118px;
+  }
+
+  .navbar {
+    top: 10px;
+  }
+
+  .nav-container {
+    width: calc(100% - 24px);
+    max-width: none;
+    height: auto;
+    min-height: 82px;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "logo action"
+      "links links";
+
+    row-gap: 8px;
+    column-gap: 10px;
+
+    align-items: center;
+
+    padding: 10px 14px 12px;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+  }
+
+  .logo {
+    grid-area: logo;
+
+    display: flex;
+    align-items: center;
+  }
+
+  .logo img {
+    height: 21px;
+    width: auto;
+  }
+
+  .nav-actions {
+    grid-area: action;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .nav-links {
+    grid-area: links;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 14px;
+
+    overflow: visible;
+
+    white-space: nowrap;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    line-height: 1;
+
+    white-space: nowrap;
+  }
+
+  .nav-links a:not(.btn)::after {
+    bottom: -5px;
+  }
+
+  .dashboard-btn,
+  .nav-action-btn,
+  .logout-btn {
+    padding: 8px 12px;
+
+    font-size: 12px;
+    line-height: 1;
+
+    border-radius: 999px;
+
+    white-space: nowrap;
+  }
+
+  .btn {
+    padding: 8px 12px;
+
+    font-size: 12px;
+  }
+
+}
+
+@media (max-width: 430px) {
+
+  body {
+    padding-top: 112px;
+  }
+
+  .nav-container {
+    width: calc(100% - 20px);
+
+    min-height: 78px;
+
+    padding: 9px 12px 11px;
+
+    border-radius: 28px;
+  }
+
+  .logo img {
+    height: 19px;
+  }
+
+  .nav-links {
+    gap: 10px;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+  }
+
+  .dashboard-btn,
+  .nav-action-btn,
+  .logout-btn {
+    padding: 7px 10px;
+
+    font-size: 11px;
+  }
+
+}
+
+/* On very narrow phones, shorten long labels visually */
+@media (max-width: 380px) {
+
+  .nav-links {
+    gap: 8px;
+  }
+
+  .nav-links a {
+    font-size: 10.5px;
+  }
+
+  .dashboard-btn,
+  .nav-action-btn,
+  .logout-btn {
+    font-size: 10.5px;
+  }
+
+}
+/* =========================
+   MOBILE HERO BALANCE
+========================= */
+
+@media (max-width: 600px) {
+
+  .hero h1 {
+    font-size: 36px;
+    line-height: 1.08;
+  }
+
+  .hero p {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .btn.big {
+    padding: 12px 22px;
+
+    font-size: 13px;
+  }
+
+  .hero-stats {
+    gap: 24px;
+  }
+
+  .stat-item strong {
+    font-size: 18px;
+  }
+
+  .stat-item span {
+    font-size: 13px;
+  }
+
+}
