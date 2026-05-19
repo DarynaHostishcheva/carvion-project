@@ -8,13 +8,16 @@ let activeIndustry = "All";
 let searchQuery = "";
 let searchTimeout = null;
 
-function formatDescription(text) {
+function formatDescription(text, limit = 18) {
   if (!text) return "";
 
-  const trimmed = text.trim();
-  const endsCorrectly = /[.!?]$/.test(trimmed);
+  const words = text.trim().split(/\s+/);
 
-  return endsCorrectly ? trimmed : `${trimmed}...`;
+  if (words.length <= limit) {
+    return text.trim();
+  }
+
+  return `${words.slice(0, limit).join(" ")}...`;
 }
 
 async function fetchJson(url) {

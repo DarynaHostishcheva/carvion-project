@@ -142,7 +142,7 @@ body.loaded {
 .career-card {
   position: relative;
   overflow: hidden;
-  min-height: 240px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   padding: 22px;
@@ -213,6 +213,7 @@ body.loaded {
   flex: 1;
   margin: 0;
   color: #666;
+  min-height: 90px;
   font-size: 14px;
   line-height: 1.6;
   display: -webkit-box;
