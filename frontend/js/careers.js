@@ -8,6 +8,15 @@ let activeIndustry = "All";
 let searchQuery = "";
 let searchTimeout = null;
 
+function formatDescription(text) {
+  if (!text) return "";
+
+  const trimmed = text.trim();
+  const endsCorrectly = /[.!?]$/.test(trimmed);
+
+  return endsCorrectly ? trimmed : `${trimmed}...`;
+}
+
 async function fetchJson(url) {
   const response = await fetch(url);
   const data = await response.json();
@@ -57,6 +66,7 @@ function renderCategories(categories) {
     button.className = "filter-btn";
     button.textContent = category;
     button.classList.toggle("active", category === activeIndustry);
+
     button.addEventListener("click", async () => {
       activeIndustry = category;
       renderCategories(categories);
@@ -80,7 +90,7 @@ function createCareerCard(career, index) {
     <h2>${career.name}</h2>
 
     <p class="career-description">
-      ${career.description}
+      ${formatDescription(career.description)}
     </p>
 
     <div class="career-footer">
