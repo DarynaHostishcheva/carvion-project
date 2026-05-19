@@ -1,32 +1,26 @@
 const API_URL = "https://carvion-project.onrender.com/api";
 
-/* =========================
-   DOM
-========================= */
-
-const careersGrid =
-  document.querySelector(".careers-grid");
-
-const searchInput =
-  document.querySelector(".search-input");
-
-const industryFilters =
-  document.getElementById("industryFilters");
-
-/* =========================
-   STATE
-========================= */
+const careersGrid = document.querySelector(".careers-grid");
+const searchInput = document.querySelector(".search-input");
+const industryFilters = document.getElementById("industryFilters");
 
 let activeIndustry = "All";
 let searchQuery = "";
+let searchTimeout = null;
 
-/* =========================
-   API
-========================= */
+async function fetchJson(url) {
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Request failed");
+  }
+
+  return data;
+}
 
 async function fetchCareers() {
-  const params =
-    new URLSearchParams();
+  const params = new URLSearchParams();
 
   if (searchQuery) {
     params.append("search", searchQuery);
@@ -36,176 +30,115 @@ async function fetchCareers() {
     params.append("category", activeIndustry);
   }
 
-  const response =
-    await fetch(`${API_URL}/careers?${params.toString()}`);
-
-  const data =
-    await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to load careers");
-  }
-
+  const data = await fetchJson(`${API_URL}/careers?${params.toString()}`);
   return data.careers;
 }
 
 async function fetchCategories() {
-  const response =
-    await fetch(`${API_URL}/careers/categories`);
-
-  const data =
-    await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to load categories");
-  }
-
-  return [
-    "All",
-    ...data.categories
-  ];
+  const data = await fetchJson(`${API_URL}/careers/categories`);
+  return ["All", ...data.categories];
 }
 
-/* =========================
-   FILTERS
-========================= */
+function renderEmptyState(title, text) {
+  careersGrid.innerHTML = `
+    <div class="empty-state">
+      <h3>${title}</h3>
+      <p>${text}</p>
+    </div>
+  `;
+}
 
-function renderFilterButtons(categories) {
+function renderCategories(categories) {
   industryFilters.innerHTML = "";
 
   categories.forEach((category) => {
-    const button =
-      document.createElement("button");
+    const button = document.createElement("button");
 
-    button.className =
-      "filter-btn";
-
-    button.textContent =
-      category;
-
-    if (category === activeIndustry) {
-      button.classList.add("active");
-    }
-
+    button.className = "filter-btn";
+    button.textContent = category;
+    button.classList.toggle("active", category === activeIndustry);
     button.addEventListener("click", async () => {
       activeIndustry = category;
-
+      renderCategories(categories);
       await renderCareers();
-      await renderCategories();
     });
 
     industryFilters.appendChild(button);
   });
 }
 
-async function renderCategories() {
-  const categories =
-    await fetchCategories();
+function createCareerCard(career, index) {
+  const card = document.createElement("a");
 
-  renderFilterButtons(categories);
+  card.className = "career-card";
+  card.href = `career.html?id=${career.id}`;
+  card.innerHTML = `
+    <div class="career-top">
+      <span class="career-badge">${career.category}</span>
+    </div>
+
+    <h2>${career.name}</h2>
+
+    <p class="career-description">
+      ${career.description}
+    </p>
+
+    <div class="career-footer">
+      <span class="career-link">Learn more →</span>
+    </div>
+  `;
+
+  card.style.opacity = "0";
+  card.style.transform = "translateY(20px)";
+
+  setTimeout(() => {
+    card.style.transition = "0.45s ease";
+    card.style.opacity = "1";
+    card.style.transform = "translateY(0)";
+  }, index * 40);
+
+  return card;
 }
-
-/* =========================
-   RENDER CAREERS
-========================= */
 
 async function renderCareers() {
   try {
     careersGrid.innerHTML = "";
 
-    const careers =
-      await fetchCareers();
+    const careers = await fetchCareers();
 
-    if (careers.length === 0) {
-      careersGrid.innerHTML = `
-        <div class="empty-state">
-          <h3>No careers found</h3>
-          <p>Try changing filters or search query.</p>
-        </div>
-      `;
-
+    if (!careers.length) {
+      renderEmptyState("No careers found", "Try changing filters or search query.");
       return;
     }
 
     careers.forEach((career, index) => {
-      const card =
-        document.createElement("a");
-
-      card.className =
-        "career-card";
-
-      card.href =
-        `career.html?id=${career.id}`;
-
-      card.innerHTML = `
-        <div class="career-top">
-          <span class="career-badge">
-            ${career.category}
-          </span>
-        </div>
-
-        <h2>
-          ${career.name}
-        </h2>
-
-        <p class="career-description">
-          ${career.description}
-        </p>
-
-        <div class="career-footer">
-          <span class="career-link">
-            Learn more →
-          </span>
-        </div>
-      `;
-
-      card.style.opacity = "0";
-      card.style.transform = "translateY(20px)";
-
-      careersGrid.appendChild(card);
-
-      setTimeout(() => {
-        card.style.transition = "0.45s ease";
-        card.style.opacity = "1";
-        card.style.transform = "translateY(0)";
-      }, index * 40);
+      careersGrid.appendChild(createCareerCard(career, index));
     });
   } catch (error) {
-    careersGrid.innerHTML = `
-      <div class="empty-state">
-        <h3>Unable to load careers</h3>
-        <p>${error.message}</p>
-      </div>
-    `;
+    renderEmptyState("Unable to load careers", error.message);
   }
 }
-
-/* =========================
-   SEARCH
-========================= */
-
-let searchTimeout = null;
 
 searchInput.addEventListener("input", () => {
   clearTimeout(searchTimeout);
 
   searchTimeout = setTimeout(async () => {
-    searchQuery =
-      searchInput.value.trim();
-
+    searchQuery = searchInput.value.trim();
     await renderCareers();
   }, 300);
 });
 
-/* =========================
-   INIT
-========================= */
-
 async function initCareersPage() {
-  await renderCategories();
-  await renderCareers();
+  try {
+    const categories = await fetchCategories();
 
-  document.body.classList.add("loaded");
+    renderCategories(categories);
+    await renderCareers();
+  } catch (error) {
+    renderEmptyState("Unable to load careers", error.message);
+  } finally {
+    document.body.classList.add("loaded");
+  }
 }
 
 initCareersPage();
