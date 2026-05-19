@@ -1,53 +1,34 @@
 const API_URL = "https://carvion-project.onrender.com/api";
-
-const token =
-  localStorage.getItem("carvionToken");
+const token = localStorage.getItem("carvionToken");
 
 if (!token) {
   window.location.href = "auth.html";
 }
 
-const form =
-  document.getElementById("chatForm");
-
-const input =
-  document.getElementById("chatInput");
-
-const messages =
-  document.getElementById("messagesContainer");
-
-const savedChats =
-  document.getElementById("savedChats");
-
-const startScreen =
-  document.getElementById("chatStart");
-
-const newChatBtn =
-  document.getElementById("newChatBtn");
-
-const suggestionButtons =
-  document.querySelectorAll(".suggestion-btn");
+const elements = {
+  form: document.getElementById("chatForm"),
+  input: document.getElementById("chatInput"),
+  messages: document.getElementById("messagesContainer"),
+  savedChats: document.getElementById("savedChats"),
+  startScreen: document.getElementById("chatStart"),
+  newChatBtn: document.getElementById("newChatBtn"),
+  suggestionButtons: document.querySelectorAll(".suggestion-btn")
+};
 
 let chats = [];
 let currentChatId = null;
 
-/* =========================
-   API HELPER
-========================= */
-
 async function apiRequest(endpoint, options = {}) {
-  const response =
-    await fetch(`${API_URL}${endpoint}`, {
-      ...options,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        ...(options.headers || {})
-      }
-    });
+  const response = await fetch(`${API_URL}${endpoint}`, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+      ...(options.headers || {})
+    }
+  });
 
-  const data =
-    await response.json();
+  const data = await response.json();
 
   if (!response.ok) {
     throw new Error(data.message || "Request failed");
@@ -56,80 +37,66 @@ async function apiRequest(endpoint, options = {}) {
   return data;
 }
 
-/* =========================
-   CHATS
-========================= */
+function showStartScreen() {
+  elements.messages.innerHTML = "";
+  elements.startScreen.style.display = "block";
+}
 
-async function loadChats() {
-  const data =
-    await apiRequest("/chats");
+function hideStartScreen() {
+  elements.startScreen.style.display = "none";
+}
 
-  chats =
-    data.chats;
+function createMessage(text, type) {
+  const message = document.createElement("div");
+  const bubble = document.createElement("div");
 
-  renderSavedChats();
+  message.classList.add("message", type);
+  bubble.classList.add("bubble");
+  bubble.textContent = text;
+
+  message.appendChild(bubble);
+  elements.messages.appendChild(message);
+
+  elements.messages.scrollTop = elements.messages.scrollHeight;
 }
 
 function renderSavedChats() {
-  savedChats.innerHTML = "";
+  elements.savedChats.innerHTML = "";
 
-  if (chats.length === 0) {
-    savedChats.innerHTML = `
+  if (!chats.length) {
+    elements.savedChats.innerHTML = `
       <div class="empty-chats">
         No saved chats yet.
       </div>
     `;
-
     return;
   }
 
   chats.forEach((chat) => {
-    const item =
-      document.createElement("div");
+    const item = document.createElement("div");
 
-    item.className =
-      `chat-item ${chat.id === currentChatId ? "active" : ""}`;
+    item.className = `chat-item ${chat.id === currentChatId ? "active" : ""}`;
+    item.textContent = chat.title;
 
-    item.textContent =
-      chat.title;
+    item.addEventListener("click", () => loadChat(chat.id));
 
-    item.addEventListener("click", () => {
-      loadChat(chat.id);
-    });
-
-    savedChats.appendChild(item);
+    elements.savedChats.appendChild(item);
   });
 }
 
-async function createNewChat() {
-  const data =
-    await apiRequest("/chats", {
-      method: "POST",
-      body: JSON.stringify({
-        title: "New chat"
-      })
-    });
+async function loadChats() {
+  const data = await apiRequest("/chats");
 
-  currentChatId =
-    data.chat.id;
-
-  messages.innerHTML = "";
-  startScreen.style.display = "block";
-
-  await loadChats();
-
-  input.focus();
+  chats = data.chats;
+  renderSavedChats();
 }
 
 async function loadChat(chatId) {
-  const data =
-    await apiRequest(`/chats/${chatId}`);
+  const data = await apiRequest(`/chats/${chatId}`);
 
-  currentChatId =
-    data.chat.id;
-
-  messages.innerHTML = "";
-  startScreen.style.display = "none";
+  currentChatId = data.chat.id;
+  elements.messages.innerHTML = "";
+  hideStartScreen();
 
   data.messages.forEach((message) => {
     createMessage(
@@ -141,119 +108,65 @@ async function loadChat(chatId) {
   renderSavedChats();
 }
 
-/* =========================
-   MESSAGES
-========================= */
+async function createChat(title) {
+  const data = await apiRequest("/chats", {
+    method: "POST",
+    body: JSON.stringify({ title })
+  });
 
-function createMessage(text, type) {
-  const message =
-    document.createElement("div");
-
-  message.classList.add("message", type);
-
-  const bubble =
-    document.createElement("div");
-
-  bubble.classList.add("bubble");
-
-  bubble.textContent =
-    text;
-
-  message.appendChild(bubble);
-
-  messages.appendChild(message);
-
-  messages.scrollTop =
-    messages.scrollHeight;
+  currentChatId = data.chat.id;
 }
 
 async function sendMessage(text) {
-  if (!text) {
-    return;
-  }
+  if (!text) return;
 
   try {
     if (!currentChatId) {
-      const data =
-        await apiRequest("/chats", {
-          method: "POST",
-          body: JSON.stringify({
-            title: text.slice(0, 40)
-          })
-        });
-
-      currentChatId =
-        data.chat.id;
+      await createChat(text.slice(0, 40));
     }
 
-    startScreen.style.display = "none";
-
+    hideStartScreen();
     createMessage(text, "user");
+    elements.input.value = "";
 
-    input.value = "";
-
-    const data =
-      await apiRequest(`/chats/${currentChatId}/messages`, {
-        method: "POST",
-        body: JSON.stringify({
-          message: text
-        })
-      });
+    const data = await apiRequest(`/chats/${currentChatId}/messages`, {
+      method: "POST",
+      body: JSON.stringify({ message: text })
+    });
 
     createMessage(data.aiMessage.message, "ai");
-
     await loadChats();
   } catch (error) {
     alert(error.message);
   }
 }
 
-/* =========================
-   EVENTS
-========================= */
-
-form.addEventListener("submit", (event) => {
+elements.form.addEventListener("submit", (event) => {
   event.preventDefault();
-
-  const text =
-    input.value.trim();
-
-  sendMessage(text);
+  sendMessage(elements.input.value.trim());
 });
 
-newChatBtn.addEventListener("click", async () => {
+elements.newChatBtn.addEventListener("click", () => {
   currentChatId = null;
-
-  messages.innerHTML = "";
-
-  startScreen.style.display = "block";
-
-  input.focus();
-
+  showStartScreen();
   renderSavedChats();
+  elements.input.focus();
 });
 
-suggestionButtons.forEach((button) => {
+elements.suggestionButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    const text =
-      button.textContent.trim();
-
-    sendMessage(text);
+    sendMessage(button.textContent.trim());
   });
 });
-
-/* =========================
-   INIT
-========================= */
 
 async function initChatPage() {
   try {
     await loadChats();
-
-    document.body.classList.add("loaded");
   } catch (error) {
     alert(error.message);
     window.location.href = "auth.html";
+  } finally {
+    document.body.classList.add("loaded");
   }
 }
 
