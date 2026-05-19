@@ -29,12 +29,6 @@ function renderNavbar() {
     `;
 }
 
-document.querySelectorAll(".social-btn").forEach((button) => {
-  button.addEventListener("click", () => {
-    button.textContent = "Coming Soon";
-  });
-});
-
 renderNavbar();
 
 window.addEventListener("load", () => {
