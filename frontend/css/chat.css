@@ -283,6 +283,7 @@ body::before {
   border-radius: 20px;
   font-size: 13px;
   line-height: 1.6;
+  white-space: pre-line;
 }
 
 .user .bubble {
