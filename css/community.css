@@ -153,29 +153,30 @@ body::before {
 }
 
 .social-btn {
+  margin-top: auto;
   width: 100%;
   height: 46px;
-  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   border-radius: 999px;
   background: linear-gradient(135deg, #6fe0a1, #57c788);
   color: white;
+  text-decoration: none;
   font-size: 14px;
   font-weight: 650;
+  font-family: inherit;
   cursor: pointer;
-  box-shadow: 0 14px 30px rgba(91, 203, 142, 0.24);
-  transition:
-    transform 0.24s ease,
-    box-shadow 0.24s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none; 
+  box-shadow: 0 14px 30px rgba(91,203,142,0.24);
+  transition: 0.24s ease;
 }
 
 .social-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 34px rgba(91, 203, 142, 0.30);
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 20px 34px rgba(91,203,142,0.30);
 }
 
 @media (max-width: 1100px) {
