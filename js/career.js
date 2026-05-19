@@ -1,14 +1,40 @@
 const API_URL = "https://carvion-project.onrender.com/api";
-const careersGrid = document.querySelector(".careers-grid");
-const searchInput = document.querySelector(".search-input");
-const industryFilters = document.getElementById("industryFilters");
+const token = localStorage.getItem("carvionToken");
 
-let activeIndustry = "All";
-let searchQuery = "";
-let searchTimeout = null;
+const params = new URLSearchParams(window.location.search);
+const careerId = Number(params.get("id"));
 
-async function fetchJson(url) {
-  const response = await fetch(url);
+let career = null;
+let savedCareerIds = [];
+
+function formatDescription(text) {
+  if (!text) return "";
+
+  const trimmed = text.trim();
+  const endsCorrectly = /[.!?]$/.test(trimmed);
+
+  return endsCorrectly ? trimmed : `${trimmed}...`;
+}
+
+async function apiRequest(endpoint, options = {}) {
+  const headers = {
+    "Content-Type": "application/json",
+    ...(options.headers || {})
+  };
+
+  if (options.protected) {
+    if (!token) {
+      throw new Error("Please log in first.");
+    }
+
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const response = await fetch(`${API_URL}${endpoint}`, {
+    ...options,
+    headers
+  });
+
   const data = await response.json();
 
   if (!response.ok) {
@@ -18,126 +44,126 @@ async function fetchJson(url) {
   return data;
 }
 
-async function fetchCareers() {
-  const params = new URLSearchParams();
-
-  if (searchQuery) {
-    params.append("search", searchQuery);
-  }
-
-  if (activeIndustry !== "All") {
-    params.append("category", activeIndustry);
-  }
-
-  const data = await fetchJson(`${API_URL}/careers?${params.toString()}`);
-  return data.careers;
+function isCareerSaved(id) {
+  return savedCareerIds.includes(id);
 }
 
-async function fetchCategories() {
-  const data = await fetchJson(`${API_URL}/careers/categories`);
-  return ["All", ...data.categories];
+async function loadCareer() {
+  const data = await apiRequest(`/careers/${careerId}`);
+  career = data.career;
 }
 
-function renderEmptyState(title, text) {
-  careersGrid.innerHTML = `
-    <div class="empty-state">
-      <h3>${title}</h3>
-      <p>${text}</p>
-    </div>
+async function loadSavedCareers() {
+  if (!token) {
+    savedCareerIds = [];
+    return;
+  }
+
+  const data = await apiRequest("/dashboard", {
+    protected: true
+  });
+
+  savedCareerIds = data.savedCareers.map((item) => item.id);
+}
+
+function renderError(message) {
+  document.getElementById("careerPage").innerHTML = `
+    <section class="glass-card">
+      <h1>Career not found</h1>
+      <p class="section-text">${message}</p>
+    </section>
   `;
 }
 
-function renderCategories(categories) {
-  industryFilters.innerHTML = "";
+function renderCareer() {
+  const careerPage = document.getElementById("careerPage");
+  const saved = isCareerSaved(career.id);
 
-  categories.forEach((category) => {
-    const button = document.createElement("button");
+  document.title = `${career.name} | Carvion`;
 
-    button.className = "filter-btn";
-    button.textContent = category;
-    button.classList.toggle("active", category === activeIndustry);
-    button.addEventListener("click", async () => {
-      activeIndustry = category;
-      renderCategories(categories);
-      await renderCareers();
+  careerPage.innerHTML = `
+    <section class="career-hero glass-card">
+      <div class="career-hero-top">
+        <div>
+          <span class="career-category">${career.category}</span>
+          <h1>${career.name}</h1>
+        </div>
+
+        <button
+          class="save-career-btn ${saved ? "saved" : ""}"
+          id="saveCareerBtn"
+          type="button"
+        >
+          ${saved ? "Saved" : "Save Career"}
+        </button>
+      </div>
+    </section>
+
+    <section class="overview-card glass-card">
+      <div class="section-header">
+        <h2>Overview</h2>
+        <span class="section-label">What is it?</span>
+      </div>
+
+      <p class="section-text">
+        ${formatDescription(career.description)}
+      </p>
+    </section>
+
+    <section class="skills-card glass-card">
+      <h2>Skill Set</h2>
+
+      <div class="skills-list">
+        ${career.skills.map((skill) => `
+          <div class="skill-pill">${skill.name}</div>
+        `).join("")}
+      </div>
+    </section>
+  `;
+
+  document
+    .getElementById("saveCareerBtn")
+    .addEventListener("click", toggleSaveCareer);
+}
+
+async function toggleSaveCareer() {
+  if (!token) {
+    window.location.href = "auth.html";
+    return;
+  }
+
+  try {
+    const saved = isCareerSaved(career.id);
+
+    await apiRequest(`/careers/${career.id}/save`, {
+      method: saved ? "DELETE" : "POST",
+      protected: true
     });
 
-    industryFilters.appendChild(button);
-  });
+    savedCareerIds = saved
+      ? savedCareerIds.filter((id) => id !== career.id)
+      : [...savedCareerIds, career.id];
+
+    renderCareer();
+  } catch (error) {
+    alert(error.message);
+  }
 }
 
-function createCareerCard(career, index) {
-  const card = document.createElement("a");
-
-  card.className = "career-card";
-  card.href = `career.html?id=${career.id}`;
-  card.innerHTML = `
-    <div class="career-top">
-      <span class="career-badge">${career.category}</span>
-    </div>
-
-    <h2>${career.name}</h2>
-
-    <p class="career-description">
-      ${career.description}
-    </p>
-
-    <div class="career-footer">
-      <span class="career-link">Learn more →</span>
-    </div>
-  `;
-
-  card.style.opacity = "0";
-  card.style.transform = "translateY(20px)";
-
-  setTimeout(() => {
-    card.style.transition = "0.45s ease";
-    card.style.opacity = "1";
-    card.style.transform = "translateY(0)";
-  }, index * 40);
-
-  return card;
-}
-
-async function renderCareers() {
+async function initCareerPage() {
   try {
-    careersGrid.innerHTML = "";
-
-    const careers = await fetchCareers();
-
-    if (!careers.length) {
-      renderEmptyState("No careers found", "Try changing filters or search query.");
-      return;
+    if (!careerId) {
+      throw new Error("Missing career id.");
     }
 
-    careers.forEach((career, index) => {
-      careersGrid.appendChild(createCareerCard(career, index));
-    });
+    await loadCareer();
+    await loadSavedCareers();
+    renderCareer();
   } catch (error) {
-    renderEmptyState("Unable to load careers", error.message);
-  }
-}
-
-searchInput.addEventListener("input", () => {
-  clearTimeout(searchTimeout);
-
-  searchTimeout = setTimeout(async () => {
-    searchQuery = searchInput.value.trim();
-    await renderCareers();
-  }, 300);
-});
-
-async function initCareersPage() {
-  try {
-    const categories = await fetchCategories();
-
-    renderCategories(categories);
-    await renderCareers();
-  } catch (error) {
-    renderEmptyState("Unable to load careers", error.message);
+    renderError(error.message);
   } finally {
     document.body.classList.add("loaded");
   }
 }
 
-initCareersPage();
+initCareerPage();
